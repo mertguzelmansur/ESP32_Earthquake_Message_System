@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <div class="section">
+            <h2>System Control</h2>
+            <button onclick="resetESP32()">Reset ESP32</button>
+            <form onsubmit="updateSSID(event)">
+                <input type="text" id="ssid" placeholder="New SSID" required>
+                <button type="submit">Change SSID</button>
+            </form>
+        </div>
+        <div class="section">
+            <h2>Messages</h2>
+            <div id="admin-messages"></div>
+        </div>
+        <div class="section">
+            <h2>Help Requests</h2>
+            <div id="admin-help-requests"></div>
+        </div>
+    </div>
+    <script src="/admin.js"></script>
+</body>
+</html>

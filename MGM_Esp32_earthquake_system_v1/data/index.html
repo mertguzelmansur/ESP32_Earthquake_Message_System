@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Earthquake Help System</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Earthquake Assistance Network</h1>
+        <div id="alert-status" class="alert"></div>
+        <div class="section">
+            <h2>Chat</h2>
+            <div id="messages"></div>
+            <form onsubmit="sendMessage(event)">
+                <input type="text" id="user" placeholder="Your Name" required>
+                <input type="text" id="message" placeholder="Your Message" required>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+        <div class="section">
+            <h2>Emergency Help</h2>
+            <button onclick="requestHelp()">I NEED HELP NOW</button>
+            <div id="help-requests"></div>
+        </div>
+    </div>
+    <script src="/script.js"></script>
+</body>
+</html>

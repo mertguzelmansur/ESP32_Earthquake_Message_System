@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Earthquake Help System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-exclamation-triangle"></i> Earthquake Assistance Network</h1>
+        <div class="connection-status">
+            <i class="fas fa-wifi"></i> Connected to Emergency Network
+        </div>
+        <div id="alert-status" class="alert"></div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <i class="fas fa-users"></i>
+                <h3>Connected Users</h3>
+                <div id="connected-users" class="stat-value">0</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-hand-holding-heart"></i>
+                <h3>Active Help Requests</h3>
+                <div id="help-count" class="stat-value">0</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-signal"></i>
+                <h3>Signal Strength</h3>
+                <div id="signal-strength" class="stat-value">0%</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><i class="fas fa-comments"></i> Emergency Chat</h2>
+            <div id="messages" class="message-container"></div>
+            <form onsubmit="sendMessage(event)" class="form-group">
+                <input type="text" id="user" placeholder="Your Name" required>
+                <input type="text" id="message" placeholder="Your Message" required>
+                <button type="submit"><i class="fas fa-paper-plane"></i> Send</button>
+            </form>
+        </div>
+
+        <div class="section">
+            <h2><i class="fas fa-ambulance"></i> Emergency Help</h2>
+            <button onclick="requestHelp()" class="danger">
+                <i class="fas fa-exclamation-circle"></i> I NEED HELP NOW
+            </button>
+            <button onclick="shareLocation()">
+                <i class="fas fa-map-marker-alt"></i> Share My Location
+            </button>
+            <div id="help-requests"></div>
+        </div>
+
+        <div class="section">
+            <h2><i class="fas fa-info-circle"></i> Safety Information</h2>
+            <div id="safety-tips">
+                <h3>During an Earthquake:</h3>
+                <ul>
+                    <li>Drop, Cover, and Hold On</li>
+                    <li>Stay away from windows</li>
+                    <li>If indoors, stay there</li>
+                    <li>If outdoors, move to a clear area</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="/script.js"></script>
+</body>
+</html>
