@@ -1,0 +1,363 @@
+<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Deprem Acil Ağ</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Tahoma,sans-serif;background:#14171c;color:#eceff3;font-size:16px}
+header{background:#b3261e;padding:8px 12px}
+.hrow{display:flex;align-items:center;gap:8px}.hrow b{flex:1;font-size:17px}
+.lang button{background:#0003;border:1px solid #fff6;color:#fff;border-radius:6px;padding:4px 7px;font-size:13px;margin-left:3px}
+.lang button.on{background:#fff;color:#b3261e;font-weight:700}
+header small{display:block;opacity:.92;font-size:12px;margin-top:3px}
+nav{display:flex;background:#1e232b;position:sticky;top:0;z-index:4}
+nav button{flex:1;padding:12px 2px;background:none;border:0;color:#aab2bf;font-size:14px;border-bottom:3px solid transparent}
+nav button.on{color:#fff;border-color:#ff6b5e;font-weight:600}
+main{padding:12px;max-width:640px;margin:auto}
+label{display:block;margin:12px 0 4px;font-size:13px;color:#aab2bf}
+input,textarea,select{width:100%;padding:11px;border-radius:8px;border:1px solid #39414d;background:#0f1216;color:#fff;font-size:16px;font-family:inherit}
+textarea{height:80px;resize:vertical}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:8px}.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.g button{padding:12px 6px;border-radius:8px;border:2px solid #39414d;background:#1e232b;color:#eceff3;font-size:15px}
+.g button.sel{border-color:#fff;font-weight:700}.g button.wide{grid-column:1/-1}
+.s0.sel{background:#1b7a3a}.s1.sel{background:#b06a00}.s2.sel{background:#c2410c}.s3.sel{background:#b3261e}.s4.sel{background:#2b5fb3}.s5.sel{background:#6d3fb3}.s6.sel{background:#0f766e}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chips button{padding:7px 10px;font-size:13px;border-radius:16px;border:1px solid #39414d;background:#1e232b;color:#eceff3}
+.chips button.on{background:#ff6b5e;border-color:#ff6b5e;color:#fff;font-weight:600}
+.send{width:100%;margin-top:16px;padding:15px;border:0;border-radius:10px;background:#ff6b5e;color:#fff;font-size:18px;font-weight:700}
+.send:disabled{opacity:.5}.btn{padding:9px 14px;border-radius:8px;border:0;background:#ff6b5e;color:#fff;font-size:15px;font-weight:600}
+.btn2{padding:8px 12px;border-radius:8px;border:1px solid #556;background:#0f1216;color:#fff;font-size:14px;margin:4px 4px 0 0}
+.card{background:#1e232b;border-radius:10px;padding:10px 12px;margin:8px 0;border-inline-start:6px solid #666}
+.card.u3{border-color:#ff3b30}.card.u2{border-color:#ff9f0a}.card.u1{border-color:#30d158}.card.rs{opacity:.55;border-color:#666}.card.of{border-color:#5aa0ff;background:#1a2433}
+.card h3{margin:0 0 4px;font-size:16px}.tag{display:inline-block;font-size:11px;padding:2px 7px;border-radius:10px;background:#39414d;margin-inline-end:4px}
+.tag.u3{background:#ff3b30}.tag.u2{background:#b06a00}.tag.u1{background:#1b7a3a}.tag.of{background:#2b5fb3}
+.card p{margin:4px 0;overflow-wrap:anywhere}.meta{font-size:12px;color:#aab2bf}.card a,a{color:#7ab7ff}
+.rep{border-top:1px solid #333a45;margin-top:6px;padding-top:4px;font-size:14px}.mt{background:#2a2245;border-radius:6px;padding:6px 8px;margin-top:6px;font-size:14px}
+.bar{display:flex;gap:6px;margin-bottom:6px}.bar select{width:auto}
+.note{background:#2a2412;border:1px solid #6b5a1c;border-radius:8px;padding:10px;font-size:14px;margin:10px 0}
+.ok{background:#12301c;border-color:#1b7a3a}.notice{background:#173057;border:1px solid #2b5fb3;border-radius:8px;padding:10px;margin:10px 12px 0;font-size:15px;white-space:pre-wrap}
+.gwb{background:#12301c;padding:6px 12px;font-size:13px}
+#stat{font-size:12px;color:#aab2bf;margin:4px 0 8px}.hide{display:none!important}h2{font-size:17px;margin:16px 0 6px}li{margin:5px 0}
+details{background:#1e232b;border-radius:8px;padding:8px 10px;margin:6px 0}summary{cursor:pointer}
+.box{background:#1e232b;border-radius:10px;padding:10px 12px;margin:10px 0}.box h2{margin-top:2px}
+.ck{display:flex;align-items:center;gap:8px;margin:12px 0 4px;color:#eceff3;font-size:15px}.ck input{width:22px;height:22px}
+.tag.tk0{background:#7a2b8f}.tag.tk1{background:#2b5fb3}.tag.tk2{background:#0f766e}.tag.tk3{background:#39414d}
+.tag.tr1{background:#1b7a3a}.tag.tr2{background:#d4b000;color:#000}.tag.tr3{background:#ff3b30}.tag.tr4{background:#000;border:1px solid #999}
+.adm{background:#151a22;border-radius:8px;padding:6px;margin-top:6px}.adm input{width:70px;padding:6px;display:inline-block}
+table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:5px 4px;border-bottom:1px solid #333a45;text-align:start}.sg{display:grid;grid-template-columns:1fr 1fr;gap:6px}.sg label{margin:4px 0 2px}
+#toast{position:fixed;left:12px;right:12px;bottom:16px;background:#fff;color:#000;padding:12px;border-radius:10px;z-index:9;text-align:center;font-weight:600}
+</style></head><body>
+<div id="toast" class="hide"></div>
+<header><div class="hrow"><b data-i="title"></b><span class="lang"><button id="lg_tr" onclick="setLang('tr')">TR</button><button id="lg_en" onclick="setLang('en')">EN</button><button id="lg_ar" onclick="setLang('ar')">عربي</button></span></div><small id="sub"></small></header>
+<div id="gwb" class="gwb hide" data-i="gwOn"></div>
+<div id="notice" class="notice hide"></div>
+<nav><button id="t0" class="on" onclick="tab(0)" data-i="tReport"></button><button id="t1" onclick="tab(1)"><span data-i="tList"></span> <span id="cnt"></span></button><button id="t2" onclick="tab(2)" data-i="tInfo"></button><button id="t3" class="hide" onclick="tab(3)" data-i="tAdmin"></button></nav>
+<main>
+<section id="p0">
+<div id="match" class="note ok hide"></div>
+<div id="done" class="note ok hide"></div>
+<label data-i="yourStatus"></label>
+<div class="g" id="types"></div>
+<div id="form" class="hide">
+<div id="fUrg"><label data-i="urgency"></label><select id="urg"><option value="1" data-i="u1"></option><option value="2" data-i="u2"></option><option value="3" data-i="u3"></option></select></div>
+<label id="lName"></label><input id="name" autocomplete="name">
+<div id="fSeeker"><label data-i="yourName"></label><input id="seeker"></div>
+<label id="lLoc"></label><input id="loc" list="addrs" data-ip="addrHint"><datalist id="addrs"></datalist>
+<div id="fBld"><label data-i="dmgH"></label><select id="dmg"></select>
+<label class="ck"><input type="checkbox" id="noEntry"><span data-i="noEntry"></span></label><label class="ck"><input type="checkbox" id="voices"><span data-i="voices"></span></label></div>
+<div class="g2"><div id="fPpl"><label id="lPpl"></label><input id="ppl" type="number" min="0" max="99" inputmode="numeric" value="1"></div>
+<div><label data-i="phone"></label><input id="ph" maxlength="13" inputmode="tel"></div></div>
+<div id="fNeeds"><label data-i="needs"></label><div class="chips" id="needs"></div></div>
+<div id="fMed"><label data-i="blood"></label><select id="blood"></select><label data-i="medH"></label><div class="chips" id="meds"></div></div>
+<div id="fSkills"><label data-i="skills"></label><div class="chips" id="skills"></div></div>
+<label><span data-i="message"></span> <span id="left"></span></label><textarea id="text"></textarea>
+<button class="send" id="sb" onclick="send()" data-i="send"></button>
+</div>
+<div class="note" id="dnote"></div>
+</section>
+<section id="p1" class="hide">
+<div class="bar"><input id="q" data-ip="searchPh" oninput="draw()"><select id="flt" onchange="draw()">
+<option value="a" data-i="fAll"></option><option value="u" data-i="fUrg"></option><option value="h" data-i="fHelp"></option><option value="s" data-i="fSafe"></option><option value="m" data-i="fSearch"></option><option value="v" data-i="fVol"></option><option value="d" data-i="fAnn"></option><option value="n" data-i="fUna"></option><option value="b" data-i="fBld"></option><option value="p" data-i="fStock"></option></select></div>
+<div id="stat"></div><div id="list"></div>
+</section>
+<section id="p2" class="hide">
+<div id="stockBox" class="hide"><h2 data-i="stockH"></h2><div id="stockInfo"></div></div>
+<div id="info"></div>
+<h2 data-i="aboutH"></h2><p class="meta" data-i="about"></p><p id="dev" class="meta"></p>
+<h2 data-i="adminLogin"></h2>
+<div class="bar"><input id="pin" data-ip="pinPh" inputmode="numeric" maxlength="4"><button class="btn" onclick="setPin()" data-i="login"></button></div>
+</section>
+<section id="p3" class="hide">
+<div class="box"><h2>Durum</h2><div id="aStat" class="meta"></div></div>
+<div class="box"><h2>📢 Resmî duyuru yayınla (tüm ağa)</h2><textarea id="offTxt" placeholder="Ör. Su dağıtımı 15:00'te okul bahçesinde"></textarea><button class="btn" style="margin-top:8px" onclick="sendOfficial()">Yayınla</button></div>
+<div class="box"><h2>📊 İhtiyaç özeti (açık kayıtlar)</h2><div id="sumSt" class="meta"></div><div id="sumNeeds"></div></div>
+<div class="box"><h2>🤝 Gönüllüler</h2><div id="sumSkills"></div></div>
+<div class="box"><h2>🗺 Ağ haritası</h2><div id="nodes" class="meta">Yükleniyor…</div><button class="btn2" onclick="loadNodes()">Yenile</button></div>
+<div class="box"><h2>🏪 Bu noktanın dağıtım stoğu</h2><p class="meta">Tüm ağa yayınlanır; herkes Bilgi sekmesinde görür. Hepsini 0 yapıp kaydedersen nokta listeden kalkar.</p><label>Dağıtım yeri (adres)</label><input id="stLoc" maxlength="47"><div class="sg" id="stockForm"></div><button class="btn" style="margin-top:8px" onclick="saveStock()">Stoğu yayınla</button></div>
+<div class="box"><h2>📍 Hazır adres listesi</h2><p class="meta">Her satıra bir sokak/bina. Kullanıcılar konum yazarken listeden seçebilir.</p><textarea id="addrList" style="height:140px" placeholder="Atatürk Cd. No:12 Yıldız Apt.&#10;Okul Sk. Bahçe Sitesi B Blok"></textarea><button class="btn" style="margin-top:8px" onclick="saveAddr()">Listeyi kaydet</button></div>
+<div class="box"><h2>⚙️ Ayarlar</h2><div id="cfgForm"></div><button class="send" onclick="saveCfg()">AYARLARI KAYDET</button><div id="cfgMsg"></div></div>
+<div class="box"><h2>🌐 İnternet köprüsü araçları</h2><p class="meta">Köprü, verdiğin internet Wi-Fi'ına bu cihazın kanalından bağlanır. Hotspot başka kanaldaysa tüm cihazların kanalını onunla aynı yap.</p>
+<button class="btn2" onclick="scan()">Ağları tara</button><button class="btn2" onclick="upTest()">Test mesajı gönder</button><div id="scanRes"></div></div>
+<div class="box"><h2>🔒 Güvenlik</h2><label>Yeni görevli PIN'i (4 rakam)</label><div class="bar"><input id="np" inputmode="numeric" maxlength="4"><button class="btn" onclick="newPin()">Değiştir</button></div></div>
+<div class="box"><h2>💾 Yedek ve kayıtlar</h2>
+<p><a id="lnkCsv" href="#">📄 Tüm kayıtları CSV indir (Excel)</a></p><p><a id="lnkBak" href="#">💾 Yedek dosyası indir (.bin)</a></p>
+<label>Yedekten geri yükle (eksik kayıtlar eklenir)</label><input id="rf" type="file"><button class="btn2" onclick="restore()">Geri yükle</button>
+<p><a href="/update">⬆️ Yazılım güncelle (OTA)</a></p></div>
+<div class="box"><h2>⚠️ Cihaz</h2><button class="btn2" onclick="adm('0','reboot')">Yeniden başlat</button><button class="btn2" onclick="clr()">Tüm mesajları sil</button><button class="btn2" onclick="factory()">Fabrika ayarları</button></div>
+</section>
+</main>
+<script>
+var T={tr:{title:'Deprem Acil Haberleşme Ağı',sub:'İnternet yok — bu sayfa yalnızca bu bölgedeki cihazda çalışır',gwOn:'🌐 Ağda internet köprüsü var: mesajlarınız dışarıya da iletiliyor.',
+tReport:'Durum Bildir',tList:'Kayıtlar',tInfo:'Bilgi',tAdmin:'Görevli',yourStatus:'Durumunuz',
+st0:'Güvendeyim',st1:'Yardım lazım',st2:'Yaralı var',st3:'Enkaz altındayım',st4:'Duyuru',st5:'Yakınımı arıyorum',st6:'Gönüllüyüm',st7:'Cevap',st8:'Sensör: sarsıntı',st9:'Bina / enkaz noktası',st10:'Dağıtım noktası',st11:'Nokta uyarısı',
+tk0:'Ekip bekleniyor',tk1:'Ekip %n atandı',tk2:'Ekip %n yolda',tk3:'Tamamlandı',tr1:'YEŞİL',tr2:'SARI',tr3:'KIRMIZI',tr4:'SİYAH',
+blood:'Kan grubu (biliyorsanız)',bloodU:'Bilmiyorum',medH:'Kritik tıbbi ihtiyaç',M:['İnsülin','Diyaliz','Oksijen cihazı','Düzenli ilaç'],
+dmgH:'Hasar durumu',D:['Belirsiz','Hafif hasar','Orta hasar','Ağır hasar / yıkık'],noEntry:'Girmek tehlikeli / yasak',voices:'İçeriden ses geliyor',inside:'İçerideki tahmini kişi',
+lowbat:'Bu noktanın pili azaldı (%%n) — kapanmak üzere',stockH:'Dağıtım noktaları',fUna:'Ekipsiz',fBld:'Binalar',fStock:'Dağıtım',addrHint:'Listeden seçin veya yazın',
+urgency:'Aciliyet',u1:'Düşük',u2:'Orta',u3:'ÇOK ACİL',nameLbl:'Ad Soyad',nameSearch:'Aradığınız kişinin adı soyadı',nameAnn:'Gönderen (isteğe bağlı)',yourName:'Sizin adınız',
+loc:'Konum / Adres (mahalle, sokak, bina, kat)',locSearch:'Son bilinen yeri',locVol:'Şu an bulunduğunuz yer',people:'Kişi sayısı',phone:'Telefon (isteğe bağlı)',
+needs:'İhtiyaçlar (dokunarak seçin)',skills:'Yapabildikleriniz (dokunarak seçin)',message:'Mesaj',send:'GÖNDER',
+dnote:'Bu cihaza aynı anda en fazla %n telefon bağlanabilir. Gönderdikten sonra Wi‑Fi bağlantısını kesin ki başkaları da bağlanabilsin.',
+sent:'✔ Kaydedildi ve ağa yayınlandı. Durumunuz değişirse yeniden bildirin. Şimdi Wi‑Fi bağlantısını kesebilirsiniz.',
+pickStatus:'Lütfen durumunuzu seçin',errEmpty:'Ad veya mesaj yazın',errRate:'Çok hızlı, birkaç saniye bekleyin',errName:'Ad Soyad zorunlu',errLoc:'Konum zorunlu',errNet:'Bağlantı hatası, tekrar deneyin',errAuth:'Yetki yok',errGen:'Gönderilemedi',
+searchPh:'İsim / adres ara…',fAll:'Hepsi',fUrg:'Acil',fHelp:'Yardım',fSafe:'Güvende',fSearch:'Arananlar',fVol:'Gönüllüler',fAnn:'Duyurular',
+statLine:'%a kayıt · %b acil · bağlı telefon %c/%d · ağdaki diğer cihaz %e',none:'Kayıt yok.',anon:'İsimsiz',resolved:'✔ ULAŞILDI',official:'RESMÎ',pplN:'%n kişi',
+justNow:'az önce',minAgo:'%n dk önce',hrAgo:'%n sa önce',dayAgo:'%n gün önce',btnResolve:'Yardım ulaştı / Çözüldü',btnClose:'Kapat',btnDelete:'Sil',btnReply:'Cevap yaz',
+replyPh:'Cevabınız (ör. ekip yolda)',replyName:'Adınız (isteğe bağlı)',replySend:'Gönder',match:'🔎 Olası eşleşme:',matchBanner:'🔎 Aradığınız kişi için olası eşleşme var — Kayıtlar sekmesine bakın.',
+quake:'Bu cihaz sarsıntı algıladı (tepe ivme %g g)',confirmDel:'Silinsin mi?',adminLogin:'Görevli girişi',pinPh:'Cihaz ekranındaki PIN',login:'Giriş',pinBad:'PIN hatalı',loggedIn:'Görevli girişi yapıldı',
+aboutH:'Bu ağ hakkında',about:'Açık ve şifresiz bir ağdır; yazdıklarınızı ağa bağlanan herkes görebilir. Mesajlar yakındaki diğer ağ cihazlarına otomatik aktarılır. Resmî bir kurum hizmeti değildir.',
+dev:'Cihaz %a · pil %%b · sürüm %c',
+N:['Su','Gıda','İlaç','Battaniye','Çadır','Arama-kurtarma','Sağlık ekibi','Bebek maması','Şarj/Elektrik','Isınma','Hijyen/Tuvalet','Giysi','Tahliye/Ulaşım'],
+K:['Doktor','Hemşire/Sağlıkçı','İlk yardım','Arama-kurtarma','İnşaat müh./Mimar','İş makinesi operatörü','Elektrikçi','Tesisatçı','Aşçı','Şoför/Aracım var','Tercüman','Psikolog','Genel gönüllü'],
+info:[['Acil numaralar',['Şebeke geldiğinde: 112 Acil Çağrı (ambulans, itfaiye, polis, AFAD).','Hat yoğunsa arama yerine SMS veya internet mesajı kullanın.']],
+['Enkaz altındaysanız',['Enerjinizi koruyun; sürekli bağırmayın, sert bir cisimle boruya veya duvara düzenli vurun.','Telefonun şarjını koruyun: parlaklığı kısın, gereksiz uygulamaları kapatın.','Konumunuzu olabildiğince açık yazın: bina adı, kat, oda.']],
+['Güvendeyseniz',['Hasarlı binalara girmeyin, artçılara hazırlıklı olun.','Gaz, elektrik ve su vanalarını kapatın.','Toplanma alanına gidin ve burada “Güvendeyim” bildirin ki yakınlarınız sizi bulabilsin.']]]},
+en:{title:'Earthquake Emergency Network',sub:'No internet — this page runs only on the local device',gwOn:'🌐 An internet bridge is on the network: your messages are also forwarded outside.',
+tReport:'Report',tList:'Messages',tInfo:'Info',tAdmin:'Staff',yourStatus:'Your situation',
+st0:'I am safe',st1:'Need help',st2:'Injured person',st3:'Trapped under rubble',st4:'Announcement',st5:'Looking for someone',st6:'I can volunteer',st7:'Reply',st8:'Sensor: shaking',st9:'Damaged building / rubble',st10:'Distribution point',st11:'Device warning',
+tk0:'Waiting for a team',tk1:'Team %n assigned',tk2:'Team %n on the way',tk3:'Completed',tr1:'GREEN',tr2:'YELLOW',tr3:'RED',tr4:'BLACK',
+blood:'Blood type (if known)',bloodU:'Unknown',medH:'Critical medical need',M:['Insulin','Dialysis','Oxygen device','Regular medication'],
+dmgH:'Damage',D:['Unknown','Light damage','Moderate damage','Heavy damage / collapsed'],noEntry:'Dangerous / do not enter',voices:'Voices heard inside',inside:'Estimated people inside',
+lowbat:'Battery low (%n%) — this point may shut down soon',stockH:'Distribution points',fUna:'Unassigned',fBld:'Buildings',fStock:'Distribution',addrHint:'Pick from the list or type',
+urgency:'Urgency',u1:'Low',u2:'Medium',u3:'VERY URGENT',nameLbl:'Full name',nameSearch:'Name of the person you are looking for',nameAnn:'Sender (optional)',yourName:'Your name',
+loc:'Location / address (street, building, floor)',locSearch:'Last known location',locVol:'Where you are now',people:'Number of people',phone:'Phone (optional)',
+needs:'Needs (tap to select)',skills:'Your skills (tap to select)',message:'Message',send:'SEND',
+dnote:'This device can serve at most %n phones at the same time. After sending, disconnect from Wi‑Fi so others can connect.',
+sent:'✔ Saved and shared on the network. Report again if your situation changes. You can now disconnect from Wi‑Fi.',
+pickStatus:'Please choose your situation',errEmpty:'Enter a name or a message',errRate:'Too fast, wait a few seconds',errName:'Full name is required',errLoc:'Location is required',errNet:'Connection error, try again',errAuth:'Not allowed',errGen:'Could not send',
+searchPh:'Search name / address…',fAll:'All',fUrg:'Urgent',fHelp:'Help',fSafe:'Safe',fSearch:'Missing',fVol:'Volunteers',fAnn:'Announcements',
+statLine:'%a records · %b urgent · phones %c/%d · other devices %e',none:'No records.',anon:'Anonymous',resolved:'✔ REACHED',official:'OFFICIAL',pplN:'%n people',
+justNow:'just now',minAgo:'%n min ago',hrAgo:'%n h ago',dayAgo:'%n d ago',btnResolve:'Help arrived / Resolved',btnClose:'Close',btnDelete:'Delete',btnReply:'Reply',
+replyPh:'Your reply (e.g. team on the way)',replyName:'Your name (optional)',replySend:'Send',match:'🔎 Possible match:',matchBanner:'🔎 Possible match found for the person you are looking for — see Messages.',
+quake:'This device detected shaking (peak %g g)',confirmDel:'Delete?',adminLogin:'Staff login',pinPh:'PIN shown on the device',login:'Login',pinBad:'Wrong PIN',loggedIn:'Logged in',
+aboutH:'About this network',about:'This is an open network without a password; anyone connected can see what you write. Messages are relayed automatically to nearby devices. It is not an official service.',
+dev:'Device %a · battery %%b · version %c',
+N:['Water','Food','Medicine','Blanket','Tent','Search & rescue','Medical team','Baby food','Charging/power','Heating','Hygiene/toilet','Clothes','Evacuation/transport'],
+K:['Doctor','Nurse/paramedic','First aid','Search & rescue','Civil engineer/architect','Heavy machine operator','Electrician','Plumber','Cook','Driver/have a vehicle','Translator','Psychologist','General volunteer'],
+info:[['Emergency numbers',['When the network returns: 112 emergency (ambulance, fire, police, AFAD).','If lines are busy, use SMS or internet messages instead of calls.']],
+['If you are trapped',['Save energy; do not shout continuously, tap steadily on a pipe or wall with a hard object.','Save phone battery: lower brightness, close unneeded apps.','Describe your location as precisely as possible: building, floor, room.']],
+['If you are safe',['Do not enter damaged buildings; expect aftershocks.','Turn off gas, electricity and water valves.','Go to the assembly area and report “I am safe” here so your relatives can find you.']]]},
+ar:{title:'شبكة طوارئ الزلزال',sub:'لا يوجد إنترنت — هذه الصفحة تعمل فقط على الجهاز المحلي',gwOn:'🌐 يوجد جسر إنترنت في الشبكة: رسائلك تُرسل أيضاً إلى الخارج.',
+tReport:'إبلاغ',tList:'الرسائل',tInfo:'معلومات',tAdmin:'المسؤول',yourStatus:'حالتك',
+st0:'أنا بأمان',st1:'أحتاج مساعدة',st2:'يوجد مصاب',st3:'عالق تحت الأنقاض',st4:'إعلان',st5:'أبحث عن شخص',st6:'أستطيع التطوع',st7:'رد',st8:'الحساس: هزة',st9:'مبنى متضرر / موقع أنقاض',st10:'نقطة توزيع',st11:'تنبيه الجهاز',
+tk0:'بانتظار فريق',tk1:'تم تعيين الفريق %n',tk2:'الفريق %n في الطريق',tk3:'اكتمل',tr1:'أخضر',tr2:'أصفر',tr3:'أحمر',tr4:'أسود',
+blood:'فصيلة الدم (إن كانت معروفة)',bloodU:'غير معروف',medH:'حاجة طبية حرجة',M:['أنسولين','غسيل كلى','جهاز أكسجين','دواء منتظم'],
+dmgH:'حجم الضرر',D:['غير محدد','ضرر خفيف','ضرر متوسط','ضرر كبير / منهار'],noEntry:'خطر / ممنوع الدخول',voices:'تُسمع أصوات من الداخل',inside:'العدد التقديري للأشخاص في الداخل',
+lowbat:'البطارية منخفضة (%n%) — قد تتوقف هذه النقطة قريباً',stockH:'نقاط التوزيع',fUna:'بدون فريق',fBld:'المباني',fStock:'التوزيع',addrHint:'اختر من القائمة أو اكتب',
+urgency:'درجة الاستعجال',u1:'منخفضة',u2:'متوسطة',u3:'عاجل جداً',nameLbl:'الاسم الكامل',nameSearch:'اسم الشخص الذي تبحث عنه',nameAnn:'المرسل (اختياري)',yourName:'اسمك',
+loc:'الموقع / العنوان (الحي، الشارع، المبنى، الطابق)',locSearch:'آخر مكان معروف',locVol:'مكانك الآن',people:'عدد الأشخاص',phone:'الهاتف (اختياري)',
+needs:'الاحتياجات (اضغط للاختيار)',skills:'مهاراتك (اضغط للاختيار)',message:'الرسالة',send:'إرسال',
+dnote:'يمكن لهذا الجهاز خدمة %n هواتف كحد أقصى في نفس الوقت. بعد الإرسال اقطع اتصال الواي فاي ليتمكن الآخرون من الاتصال.',
+sent:'✔ تم الحفظ والنشر في الشبكة. إذا تغيرت حالتك أبلغ مرة أخرى. يمكنك الآن قطع اتصال الواي فاي.',
+pickStatus:'يرجى اختيار حالتك',errEmpty:'اكتب اسماً أو رسالة',errRate:'بسرعة كبيرة، انتظر بضع ثوانٍ',errName:'الاسم مطلوب',errLoc:'الموقع مطلوب',errNet:'خطأ في الاتصال، حاول مرة أخرى',errAuth:'غير مسموح',errGen:'تعذر الإرسال',
+searchPh:'ابحث بالاسم / العنوان…',fAll:'الكل',fUrg:'عاجل',fHelp:'مساعدة',fSafe:'بأمان',fSearch:'مفقودون',fVol:'متطوعون',fAnn:'إعلانات',
+statLine:'%a سجل · %b عاجل · الهواتف %c/%d · أجهزة أخرى %e',none:'لا توجد سجلات.',anon:'مجهول',resolved:'✔ تم الوصول',official:'رسمي',pplN:'%n أشخاص',
+justNow:'الآن',minAgo:'منذ %n د',hrAgo:'منذ %n س',dayAgo:'منذ %n يوم',btnResolve:'وصلت المساعدة / تم الحل',btnClose:'إغلاق',btnDelete:'حذف',btnReply:'رد',
+replyPh:'ردك (مثلاً: الفريق في الطريق)',replyName:'اسمك (اختياري)',replySend:'إرسال',match:'🔎 تطابق محتمل:',matchBanner:'🔎 يوجد تطابق محتمل للشخص الذي تبحث عنه — انظر الرسائل.',
+quake:'رصد هذا الجهاز هزة (الذروة %g g)',confirmDel:'حذف؟',adminLogin:'دخول المسؤول',pinPh:'الرمز الظاهر على الجهاز',login:'دخول',pinBad:'رمز خاطئ',loggedIn:'تم الدخول',
+aboutH:'عن هذه الشبكة',about:'هذه شبكة مفتوحة بدون كلمة مرور؛ يمكن لأي شخص متصل رؤية ما تكتبه. تُنقل الرسائل تلقائياً إلى الأجهزة القريبة. ليست خدمة رسمية.',
+dev:'الجهاز %a · البطارية %b% · الإصدار %c',
+N:['ماء','طعام','دواء','بطانية','خيمة','بحث وإنقاذ','فريق طبي','حليب أطفال','شحن/كهرباء','تدفئة','نظافة/مرحاض','ملابس','إخلاء/نقل'],
+K:['طبيب','ممرض/مسعف','إسعافات أولية','بحث وإنقاذ','مهندس مدني/معماري','مشغل آليات ثقيلة','كهربائي','سباك','طباخ','سائق/لدي مركبة','مترجم','أخصائي نفسي','متطوع عام'],
+info:[['أرقام الطوارئ',['عند عودة الشبكة: 112 للطوارئ (إسعاف، إطفاء، شرطة، آفاد).','إذا كانت الخطوط مزدحمة، استخدم الرسائل النصية بدلاً من الاتصال.']],
+['إذا كنت تحت الأنقاض',['وفّر طاقتك؛ لا تصرخ باستمرار، اطرق بانتظام على أنبوب أو جدار بجسم صلب.','حافظ على بطارية هاتفك: خفّض السطوع وأغلق التطبيقات غير الضرورية.','صف موقعك بدقة: اسم المبنى، الطابق، الغرفة.']],
+['إذا كنت بأمان',['لا تدخل المباني المتضررة، وكن مستعداً للهزات الارتدادية.','أغلق صمامات الغاز والكهرباء والماء.','توجّه إلى منطقة التجمع وأبلغ هنا «أنا بأمان» ليعثر عليك أقاربك.']]]}};
+var ICON=['✅','🙋','🩹','🧱','📢','🔎','🤝','💬','📳','🏚','🏪','🔋'],ORD=[0,1,2,3,9,5,6,4],DU=[1,2,2,3,1,2,1,1,1,1],BLOOD=['','A+','A-','B+','B-','AB+','AB-','0+','0-'],TASKABLE=[1,2,3,5,9];
+var L='tr',cur=-1,ver=-1,msgs=[],byId={},reps={},now=0,pin='',keys={},mys=[],B={N:0,K:0,M:0},S={},rOpen=null,pend=false,admT=0;
+function $(i){return document.getElementById(i)}
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+function t(k){var v=T[L][k];return v===undefined?T.tr[k]:v}
+function tf(k,o){var s=t(k);for(var x in o)s=s.split('%'+x).join(o[x]);return s}
+var tT;function toast(s){var e=$('toast');e.textContent=s;e.className='';clearTimeout(tT);tT=setTimeout(function(){e.className='hide'},3500)}
+function el(tg,c,x){var e=document.createElement(tg);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e}
+function blen(s){return unescape(encodeURIComponent(s)).length}
+function cut(s,n){while(blen(s)>n)s=s.slice(0,-1);return s}
+function lim(id,n){var e=$(id);e.addEventListener('input',function(){var v=cut(e.value,n);if(v!=e.value)e.value=v;if(id=='text'||id=='seeker')left()})}
+function norm(s){s=(s||'').toLocaleLowerCase('tr');s=s.replace(/\u0307/g,'');var a='çğıöşüâîû',b='cgiosuaiu';var o='';for(var i=0;i<s.length;i++){var k=a.indexOf(s[i]);o+=k>=0?b[k]:s[i]}return o.replace(/[^a-z0-9؀-ۿ ]+/g,' ').split(' ').filter(function(x){return x.length>1})}
+function nameMatch(q,c){var a=norm(q),b=norm(c);if(!a.length||!b.length)return false;var h=0;a.forEach(function(x){if(b.some(function(y){return y==x||(x.length>2&&y.indexOf(x)==0)}))h++});return h>=Math.min(2,a.length)}
+try{keys=JSON.parse(ls('keys')||'{}')||{};mys=JSON.parse(ls('mys')||'[]')||[]}catch(e){}
+function setLang(l){L=T[l]?l:'tr';ls('lang',L);document.documentElement.lang=L;document.documentElement.dir=L=='ar'?'rtl':'ltr';
+ ['tr','en','ar'].forEach(function(x){$('lg_'+x).className=x==L?'on':''});
+ var a=document.querySelectorAll('[data-i]');for(var i=0;i<a.length;i++)a[i].textContent=t(a[i].getAttribute('data-i'));
+ a=document.querySelectorAll('[data-ip]');for(i=0;i<a.length;i++)a[i].placeholder=t(a[i].getAttribute('data-ip'));
+ buildTypes();chips('needs','N');chips('skills','K');chips('meds','M');sel('blood',[t('bloodU')].concat(BLOOD.slice(1)));sel('dmg',t('D'));info();form();hdr();draw()}
+function sel(id,a){var e=$(id),v=e.value;e.innerHTML='';a.forEach(function(x,i){var o=el('option','',x);o.value=i;e.appendChild(o)});e.value=v||0}
+function buildTypes(){var g=$('types');g.innerHTML='';ORD.forEach(function(n){var b=el('button','s'+n+(n==4?' wide':'')+(n==cur?' sel':''),ICON[n]+' '+t('st'+n));b.onclick=function(){st(n)};g.appendChild(b)})}
+function chips(id,k){var c=$(id);c.innerHTML='';t(k).forEach(function(n,i){var b=el('button',B[k]>>i&1?'on':'',n);
+ b.onclick=function(){B[k]^=1<<i;b.className=B[k]>>i&1?'on':''};c.appendChild(b)})}
+function info(){var d=$('info');d.innerHTML='';t('info').forEach(function(s){d.appendChild(el('h2','',s[0]));var u=el('ul');s[1].forEach(function(x){u.appendChild(el('li','',x))});d.appendChild(u)})}
+function show(id,v){$(id).classList.toggle('hide',!v)}
+function form(){show('form',cur>=0);var h=cur>=1&&cur<=3;show('fUrg',h||cur==5);show('fSeeker',cur==5);show('fPpl',cur>=0&&cur<=3||cur==9);show('fNeeds',cur>=0&&cur<=3);show('fSkills',cur==6);
+ show('fMed',h);show('fBld',cur==9);$('lPpl').textContent=t(cur==9?'inside':'people');
+ $('lName').textContent=t(cur==5?'nameSearch':cur==4?'nameAnn':'nameLbl');$('lLoc').textContent=t(cur==5?'locSearch':cur==6?'locVol':'loc');left()}
+function st(n){cur=n;$('urg').value=DU[n];buildTypes();form()}
+function txtFull(){var x=$('text').value.trim();if(cur==5&&$('seeker').value.trim())x='👤 '+$('seeker').value.trim()+(x?' — '+x:'');return x}
+function left(){var r=123-blen(txtFull());$('left').textContent='('+r+')';$('left').style.color=r<0?'#ff6b5e':''}
+function post(u,o){var p=[];for(var k in o)p.push(encodeURIComponent(k)+'='+encodeURIComponent(o[k]));return fetch(u,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:p.join('&')}).then(function(r){return r.json()})}
+var EM={rate:'errRate',empty:'errEmpty',name:'errName',loc:'errLoc',auth:'errAuth'};
+function errT(r){return t(EM[r&&r.err]||'errGen')}
+function send(){
+ if(cur<0){toast(t('pickStatus'));return}
+ var nm=$('name').value.trim(),tx=txtFull();
+ if(!nm&&!tx){toast(t('errEmpty'));return}
+ if(blen(tx)>123){toast(t('errGen')+' (123)');return}
+ $('sb').disabled=true;if(cur!=5)ls('nm',nm);ls('ph',$('ph').value);if(cur!=5)ls('lc',$('loc').value);
+ post('/api/send',{name:nm,loc:$('loc').value,phone:$('ph').value,text:tx,status:cur,urg:$('urg').value,people:cur<=3||cur==9?($('ppl').value||0):0,needs:cur<=3?B.N:0,skills:cur==6?B.K:0,med:cur>=1&&cur<=3?(+$('blood').value|B.M<<4):0,dmg:cur==9?(+$('dmg').value|($('noEntry').checked?4:0)|($('voices').checked?8:0)):0,t:Math.floor(Date.now()/1000)})
+ .then(function(r){$('sb').disabled=false;
+  if(r.ok){keys[r.id]=r.key;ls('keys',JSON.stringify(keys));if(cur==5){mys.push(r.id);ls('mys',JSON.stringify(mys))}
+   $('text').value='';$('seeker').value='';B={N:0,K:0,M:0};chips('needs','N');chips('skills','K');chips('meds','M');$('blood').value=0;$('dmg').value=0;$('noEntry').checked=$('voices').checked=false;left();var d=$('done');d.className='note ok';d.textContent=t('sent');window.scrollTo(0,0);poll(1)}
+  else toast(errT(r))})
+ .catch(function(){$('sb').disabled=false;toast(t('errNet'))})}
+function ago(ts){if(!ts||!now)return '';var s=now-ts;if(s<0)s=0;var d=new Date(ts*1000),h=('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);
+ return (s<60?t('justNow'):s<3600?tf('minAgo',{n:Math.floor(s/60)}):s<86400?tf('hrAgo',{n:Math.floor(s/3600)}):tf('dayAgo',{n:Math.floor(s/86400)}))+' ('+h+')'}
+function bits(v,k){var a=t(k),o=[];for(var i=0;i<13;i++)if(v>>i&1)o.push(a[i]);return o.join(', ')}
+function matches(m){return msgs.filter(function(c){return c.st<=3&&c.id!=m.id&&nameMatch(m.n,c.n)})}
+function hay(m){var s=m.n+' '+m.l+' '+m.t+' '+m.ph;(reps[m.id]||[]).forEach(function(r){s+=' '+r.n+' '+r.t});return s.toLocaleLowerCase('tr')}
+function draw(){
+ if(rOpen&&document.activeElement&&document.activeElement.className=='rin'){pend=true;return}
+ pend=false;var q=$('q').value.toLocaleLowerCase('tr'),f=$('flt').value,Ls=$('list');Ls.innerHTML='';
+ var a=msgs.filter(function(m){if(m.st==7||(m.st==10&&f!='p'))return false;var o=m.f&1;
+  if(f=='u'&&(m.u<3||o||m.st<1||m.st>3))return false;if(f=='h'&&(m.st<1||m.st>3))return false;if(f=='s'&&m.st!=0)return false;
+  if(f=='m'&&m.st!=5)return false;if(f=='v'&&m.st!=6)return false;if(f=='d'&&m.st!=4&&m.st!=8&&m.st!=11)return false;
+  if(f=='n'&&(TASKABLE.indexOf(m.st)<0||o||m.tk))return false;if(f=='b'&&m.st!=9)return false;if(f=='p'&&m.st!=10)return false;
+  if(q&&hay(m).indexOf(q)<0)return false;return true});
+ a.sort(function(x,y){var rx=x.f&1,ry=y.f&1;if(rx!=ry)return rx-ry;var ox=x.f&8?1:0,oy=y.f&8?1:0;if(ox!=oy)return oy-ox;if(x.u!=y.u)return y.u-x.u;return y.ts-x.ts||y.i-x.i});
+ if(!a.length)Ls.appendChild(el('p','meta',t('none')));
+ a.forEach(function(m){Ls.appendChild(card(m))});
+ stockInfo();var mb=mys.some(function(id){var m=byId[id];return m&&!(m.f&1)&&matches(m).length});show('match',mb);$('match').textContent=t('matchBanner')}
+function stockTxt(x){var N=t('N');return (x||'').split(',').map(function(p){var a=p.split(':');return N[+a[0]]?N[+a[0]]+' '+a[1]:''}).filter(String).join(' · ')}
+function stockInfo(){var a=msgs.filter(function(m){return m.st==10&&m.t}),d=$('stockInfo');show('stockBox',a.length);d.innerHTML='';
+ a.forEach(function(m){var c=el('div','card of');c.appendChild(el('h3','','🏪 '+m.n));if(m.l)c.appendChild(el('p','','📍 '+m.l));c.appendChild(el('p','',stockTxt(m.t)));c.appendChild(el('p','meta',ago(m.ts)));d.appendChild(c)})}
+function card(m){var r=m.f&1,of=m.f&8,tk=TASKABLE.indexOf(m.st)>=0,c=el('div','card '+(r?'rs':of?'of':(tk&&m.st!=9||m.st==9&&m.u>1)?'u'+m.u:''));
+ var h=el('h3');if(r)h.appendChild(el('span','tag',t('resolved')));else if(tk)h.appendChild(el('span','tag u'+m.u,t('u'+m.u)));
+ if(tk&&(!r||m.tk==3))h.appendChild(el('span','tag tk'+m.tk,tf('tk'+m.tk,{n:m.tm})));if(m.tr)h.appendChild(el('span','tag tr'+m.tr,t('tr'+m.tr)));
+ if(of)h.appendChild(el('span','tag of',t('official')));h.appendChild(el('span','tag',ICON[m.st]+' '+t('st'+m.st)));
+ h.appendChild(document.createTextNode(' '+(m.n||t('anon'))));c.appendChild(h);
+ if(m.l)c.appendChild(el('p','','📍 '+m.l));
+ if(m.st==8)c.appendChild(el('p','',tf('quake',{g:(m.p/100).toFixed(2)})));if(m.st==11)c.appendChild(el('p','',tf('lowbat',{n:m.p})));
+ if(m.st==10)c.appendChild(el('p','',stockTxt(m.t)));
+ if(m.st==9){var D=t('D'),x='🏚 '+D[m.dm&3];if(m.dm&4)x+=' · ⛔ '+t('noEntry');if(m.dm&8)x+=' · 🔊 '+t('voices');c.appendChild(el('p','',x))}
+ if(m.md){var md=[];if(m.md&15)md.push('🩸 '+BLOOD[m.md&15]);var MM=t('M');for(var b=0;b<4;b++)if(m.md>>(4+b)&1)md.push('💊 '+MM[b]);c.appendChild(el('p','',md.join(' · ')))}
+ if(m.nd)c.appendChild(el('p','','🧺 '+bits(m.nd,'N')));if(m.sk)c.appendChild(el('p','','🛠 '+bits(m.sk,'K')));
+ if(m.t&&m.st!=10)c.appendChild(el('p','',m.t));
+ var mt=el('p','meta',(m.p&&m.st!=8&&m.st!=11?tf('pplN',{n:m.p})+' · ':'')+ago(m.ts));
+ if(m.ph){var tl=el('a','',' 📞 '+m.ph);tl.href='tel:'+m.ph.replace(/[^0-9+]/g,'');mt.appendChild(tl)}c.appendChild(mt);
+ if(m.st==5&&!r)matches(m).forEach(function(x){c.appendChild(el('div','mt',t('match')+' '+x.n+' — '+ICON[x.st]+' '+t('st'+x.st)+(x.l?' — 📍 '+x.l:'')+(x.ph?' — 📞 '+x.ph:'')))});
+ (reps[m.id]||[]).forEach(function(x){var d=el('div','rep');d.appendChild(el('b','',(x.f&8?'['+t('official')+'] ':'')+'💬 '+(x.n||t('anon'))+': '));d.appendChild(document.createTextNode(x.t+' '));d.appendChild(el('span','meta',ago(x.ts)));c.appendChild(d)});
+ var ac=el('div','');
+ if(rOpen==m.id){var rn=el('input','rin');rn.placeholder=t('replyName');rn.value=ls('nm')||'';var rt=el('input','rin');rt.placeholder=t('replyPh');
+  rt.addEventListener('input',function(){var v=cut(rt.value,123);if(v!=rt.value)rt.value=v});
+  var sb=el('button','btn2',t('replySend'));sb.onclick=function(){var tx=rt.value.trim();if(!tx)return;sb.disabled=true;
+   var o={status:7,parent:m.id,name:rn.value.trim(),text:tx,t:Math.floor(Date.now()/1000)};if(pin)o.pin=pin;
+   post('/api/send',o).then(function(x){sb.disabled=false;if(x.ok){rOpen=null;poll(1)}else toast(errT(x))}).catch(function(){sb.disabled=false;toast(t('errNet'))})};
+  var cx=el('button','btn2','✕');cx.onclick=function(){rOpen=null;draw()};ac.appendChild(rn);ac.appendChild(rt);ac.appendChild(sb);ac.appendChild(cx)}
+ else if(m.st!=8&&m.st!=10&&m.st!=11){var rb=el('button','btn2',t('btnReply'));rb.onclick=function(){rOpen=m.id;draw()};ac.appendChild(rb)}
+ if(!r&&(pin||keys[m.id])){var b=el('button','btn2',m.st==0||m.st==4||m.st==6||m.st==8?t('btnClose'):t('btnResolve'));b.onclick=function(){act(m.id,'resolve')};ac.appendChild(b)}
+ if(pin){var d=el('button','btn2',t('btnDelete'));d.onclick=function(){if(confirm(t('confirmDel')))act(m.id,'delete')};ac.appendChild(d)}
+ c.appendChild(ac);if(pin&&tk&&!r)c.appendChild(admBox(m));return c}
+function admBox(m){var a=el('div','adm'),tm=el('input','rin');tm.type='number';tm.min=1;tm.max=255;tm.placeholder='Ekip';tm.value=m.tm||'';a.appendChild(document.createTextNode('🚑 '));a.appendChild(tm);
+ function b(x,f){var e=el('button','btn2',x);e.onclick=f;a.appendChild(e)}
+ b('Ekip ata',function(){var v=+tm.value;if(!v){toast('Ekip no girin');return}task(m.id,1,v)});
+ if(m.tk>=1)b('Yolda',function(){task(m.id,2,m.tm)});b('Tamamlandı',function(){task(m.id,3,m.tm)});
+ if(m.st>=1&&m.st<=3){a.appendChild(el('br'));a.appendChild(document.createTextNode('Triyaj: '));[['🟢',1],['🟡',2],['🔴',3],['⚫',4],['✕',0]].forEach(function(x){b(x[0],function(){adm(m.id,'triage',{tr:x[1]})})})}
+ return a}
+function task(id,k,tm){adm(id,'task',{task:k,team:tm||0})}
+function act(id,a){post('/api/admin',{id:id,act:a,pin:pin,key:keys[id]||''}).then(function(r){if(!r.ok)toast(errT(r));poll(1)}).catch(function(){toast(t('errNet'))})}
+function hdr(){$('sub').textContent=S.place?'📍 '+S.place:t('sub');var n=S.notice||'';$('notice').textContent='📌 '+n;show('notice',!!n);show('gwb',!!S.gw);
+ $('dnote').textContent=tf('dnote',{n:S.max||10});
+ if(S.fw){$('dev').textContent=tf('dev',{a:S.node,b:S.bat,c:S.fw});$('cnt').textContent='('+S.n+')';$('stat').textContent=tf('statLine',{a:S.n,b:S.urg,c:S.cli,d:S.max,e:S.nodes})}}
+function poll(force){fetch('/api/stat').then(function(r){return r.json()}).then(function(s){S=s;now=s.now;hdr();if(pin)admStat();
+ if(s.ver!=ver||force){fetch('/api/list').then(function(r){return r.json()}).then(function(j){msgs=j.m;byId={};reps={};msgs.forEach(function(m,i){m.i=i;byId[m.id]=m});
+  msgs.forEach(function(m){if(m.st==7&&byId[m.par])(reps[m.par]=reps[m.par]||[]).push(m)});for(var k in reps)reps[k].sort(function(a,b){return a.ts-b.ts||a.i-b.i});
+  ver=s.ver;draw();if(pin)summary()})}}).catch(function(){})}
+function tab(n){for(var i=0;i<4;i++){show('p'+i,i==n);$('t'+i).className=(i==n?'on':'')+(i==3&&!pin?' hide':'')}if(n==1)poll(1);if(n==3){loadCfg();summary();admStat();loadNodes();loadStock();loadAddr()}window.scrollTo(0,0)}
+function setPin(){var p=$('pin').value;post('/api/admin',{act:'check',pin:p}).then(function(r){if(r.ok){pin=p;$('t3').className='';$('lnkCsv').href='/export.csv?pin='+p;$('lnkBak').href='/backup.bin?pin='+p;toast(t('loggedIn'));draw();tab(3)}else toast(t('pinBad'))})}
+/* ---------------- görevli paneli (Türkçe) ---------------- */
+var CF=[['h','📍 Nokta'],['place','Nokta adı (ör. Merkez Park Toplanma Alanı)','t',40],['notice','Sabit duyuru (sayfanın en üstünde görünür, sadece bu cihaz)','a',200],
+['h','📶 Wi-Fi (kaydedince yeniden başlatma ister)'],['ssid','Wi-Fi adı (SSID)','t',32],['ch','Kanal (ağdaki tüm cihazlarda aynı olmalı)','s',[1,2,3,4,5,6,7,8,9,10,11,12,13].map(function(x){return[x,x]})],
+['txp','Verici gücü','s',[[0,'8.5 dBm'],[1,'11 dBm'],[2,'13 dBm'],[3,'15 dBm'],[4,'17 dBm'],[5,'19.5 dBm (en güçlü)']]],['maxcli','Aynı anda en fazla telefon (1-10)','n',1,10],
+['h','🔗 Mesh (cihazlar arası)'],['meshEn','ESP-NOW mesh açık','c'],['ttl','Aktarım derinliği (kaç cihaz öteye, 1-10)','n',1,10],['syncSec','Eşitleme aralığı sn (0 = kapalı)','n',0,60],
+['h','🔆 Ekran ve ses'],['bright','Ekran parlaklığı (10-255)','n',10,255],['dimSec','Ekran kapanma süresi sn (0 = hiç kapanmaz)','n',0,3600],['vol','Buzzer ses seviyesi (0-255)','n',0,255],
+['beepLvl','Yeni yardım kaydında öt','s',[[0,'Hiç ötme'],[1,'Her yardım kaydında'],[2,'Orta ve üstü'],[3,'Sadece ÇOK ACİL']]],
+['h','📝 Mesaj kuralları'],['reqName','Ad Soyad zorunlu','c'],['reqLoc','Yardım kayıtlarında konum zorunlu','c'],['rateSec','Aynı telefondan iki gönderim arası sn (0 = sınırsız)','n',0,255],['hideH','Çözülenleri X saat sonra listeden gizle (0 = gizleme)','n',0,720],
+['h','🔋 Pil'],['lowBat','Düşük pil uyarısı eşiği % (0 = kapalı, varsayılan 15)','n',0,50],['psave','Pil tasarrufu: işlemci 80 MHz, ekran tamamen uyur (yeniden başlatma ister)','c'],
+['h','🔐 Resmî duyuru imzası'],['netKey','Ağ anahtarı (ağdaki tüm cihazlarda aynı olmalı, en az 8 karakter önerilir)','p',32],
+['h','📳 Deprem sensörü (cihazı duvara/yere sabitleyin)'],['quakeEn','Sarsıntı algılama açık','c'],['quakeThr','Hassasiyet eşiği ×0.01 g (düşük = daha hassas, varsayılan 12)','n',3,100],['quakePost','Algılanınca ağa “sarsıntı” kaydı yayınla','c'],
+['h','🌐 İnternet köprüsü (yeniden başlatma ister)'],['upMode','Köprü modu','s',[[0,'Kapalı'],[1,'Telegram'],[2,'Webhook'],[3,'Telegram + Webhook']]],
+['upSsid','İnternet Wi-Fi adı (telefon hotspot, Starlink vb.)','t',32],['upPass','İnternet Wi-Fi şifresi','p',64],['tgToken','Telegram bot token (@BotFather)','t',63],['tgChat','Telegram chat id (grup ise -100… ile başlar)','t',23],['hookUrl','Webhook URL (her kayıt JSON olarak POST edilir)','t',159]];
+function buildCfg(){var d=$('cfgForm');if(d.childNodes.length)return;CF.forEach(function(f){if(f[0]=='h'){d.appendChild(el('h2','',f[1]));return}var e;
+ if(f[2]=='c'){var l=el('label','ck');e=el('input');e.type='checkbox';e.id='c_'+f[0];l.appendChild(e);l.appendChild(document.createTextNode(f[1]));d.appendChild(l);return}
+ d.appendChild(el('label','',f[1]));
+ if(f[2]=='s'){e=el('select');f[3].forEach(function(o){var op=el('option','',o[1]);op.value=o[0];e.appendChild(op)})}
+ else if(f[2]=='a'){e=el('textarea');e.maxLength=f[3]}else{e=el('input');if(f[2]=='n'){e.type='number';e.min=f[3];e.max=f[4];e.inputMode='numeric'}else{e.maxLength=f[3];if(f[2]=='p')e.type='password'}}
+ e.id='c_'+f[0];d.appendChild(e)})}
+function loadCfg(){buildCfg();post('/api/admin',{act:'cfg_get',pin:pin}).then(function(c){if(!c.ok)return;CF.forEach(function(f){if(f[0]=='h')return;var e=$('c_'+f[0]);if(f[2]=='c')e.checked=!!c[f[0]];else e.value=c[f[0]]})})}
+function saveCfg(){var o={act:'cfg_set',pin:pin};CF.forEach(function(f){if(f[0]=='h')return;var e=$('c_'+f[0]);o[f[0]]=f[2]=='c'?(e.checked?1:0):e.value});
+ if(blen(o.notice)>200||blen(o.place)>40){toast('Metin çok uzun');return}
+ post('/api/admin',o).then(function(r){var m=$('cfgMsg');m.innerHTML='';if(!r.ok){toast('Kaydedilemedi');return}
+  var n=el('div','note ok',r.reboot?'✔ Kaydedildi. Wi-Fi/köprü/pil ayarlarının geçerli olması için yeniden başlatın.':'✔ Kaydedildi ve uygulandı.');
+  if(r.reboot){var b=el('button','btn2','Şimdi yeniden başlat');b.onclick=function(){adm('0','reboot')};n.appendChild(el('br'));n.appendChild(b)}m.appendChild(n);ver=-1;poll(1)}).catch(function(){toast(t('errNet'))})}
+function adm(id,a,extra){var o={id:id,act:a,pin:pin};for(var k in extra||{})o[k]=extra[k];return post('/api/admin',o).then(function(r){if(!r.ok)toast(r.err&&r.err.length>4?r.err:'Hata');else if(a=='reboot'||a=='factory')toast('Cihaz yeniden başlıyor… Wi-Fi\'a yeniden bağlanın.');else poll(1);return r}).catch(function(){toast(t('errNet'))})}
+function clr(){if(confirm('TÜM mesajlar silinecek. Emin misiniz?'))adm('0','clear')}
+function factory(){if(confirm('Tüm ayarlar, PIN ve mesajlar silinecek. Emin misiniz?')&&confirm('Son kez: fabrika ayarlarına dönülsün mü?'))adm('0','factory')}
+function newPin(){var p=$('np').value;if(!/^\d{4}$/.test(p)){toast('PIN 4 rakam olmalı');return}adm('0','newpin',{np:p}).then(function(r){if(r&&r.ok){pin=p;$('lnkCsv').href='/export.csv?pin='+p;$('lnkBak').href='/backup.bin?pin='+p;toast('PIN değişti: '+p)}})}
+function sendOfficial(){var x=$('offTxt').value.trim();if(!x)return;post('/api/send',{status:4,name:S.place||'Görevli',text:cut(x,123),pin:pin,t:Math.floor(Date.now()/1000)}).then(function(r){if(r.ok){$('offTxt').value='';toast('Duyuru yayınlandı');poll(1)}else toast(errT(r))})}
+function scan(){$('scanRes').textContent='Taranıyor… (birkaç saniye bağlantı yavaşlayabilir)';adm('0','scan').then(function(r){var d=$('scanRes');d.innerHTML='';if(!r||!r.ok)return;
+ r.n.sort(function(a,b){return b.r-a.r}).forEach(function(n){var b=el('button','btn2',(n.s||'(gizli)')+' · kanal '+n.c+' · '+n.r+' dBm');b.onclick=function(){$('c_upSsid').value=n.s;
+  var x=el('div','note','Seçildi: '+n.s+'. Bu ağ kanal '+n.c+'’de. Köprünün çalışması için Wi-Fi kanalını '+n.c+' yapın (ağdaki tüm cihazlarda) ve ayarları kaydedin.');d.appendChild(x);
+  $('c_ch').value=n.c};d.appendChild(b)})})}
+function upTest(){adm('0','uptest').then(function(r){if(r&&r.ok)toast('Test mesajı kuyruğa alındı')})}
+function restore(){var f=$('rf').files[0];if(!f){toast('Dosya seçin');return}var x=new XMLHttpRequest();x.open('POST','/restore?pin='+encodeURIComponent(pin));
+ x.onload=function(){try{var r=JSON.parse(x.responseText);toast(r.ok?r.added+' kayıt eklendi':(r.err||'Hata'));poll(1)}catch(e){toast('Hata')}};x.onerror=function(){toast(t('errNet'))};var d=new FormData();d.append('f',f);x.send(d)}
+function admStat(){var s=S,kk=s.key?'Ağ anahtarı tanımlı ✔ (resmî duyurular imzalı)':'⚠️ Ağ anahtarı yok: resmî duyurular doğrulanamaz (Ayarlar → Ağ anahtarı)',u=['kapalı','bağlanıyor…','BAĞLI ✔'][s.up]||'?',o='Köprü: '+u;if(s.up)o+=' · son yanıt '+(s.upc||'-')+' · gönderilmeyi bekleyen '+s.pend;
+ if(s.up==2&&s.ch!=s.cfgch)o+=' · ⚠️ kanal '+s.ch+' (ayar '+s.cfgch+'): diğer cihazlarla mesh kopabilir!';
+ o+='\nMesh: '+(s.mesh?'açık':'kapalı')+' · ağdaki cihaz '+s.nodes+' · kanal '+s.ch+'\nTelefon '+s.cli+'/'+s.max+' · pil %'+s.bat+' · cihaz '+s.node+' · v'+s.fw;
+ o+='\nEkip atanmamış yardım kaydı: '+(s.una||0)+'\n'+kk;o+='\nSarsıntı sensörü: '+(s.imu?'var':'yok')+(s.qts?' · son algılama '+new Date(s.qts*1000).toLocaleString('tr-TR')+' ('+(s.qpk/100).toFixed(2)+' g)':'');
+ $('aStat').style.whiteSpace='pre-wrap';$('aStat').textContent=o}
+function myStockId(){return ((S.node||'').toLowerCase()+'fffe')}
+function stockTot(){var t0=[];msgs.forEach(function(m){if(m.st==10)(m.t||'').split(',').forEach(function(p){var a=p.split(':');if(a.length==2)t0[+a[0]]=(t0[+a[0]]||0)+(+a[1]||0)})});return t0}
+function loadStock(){var f=$('stockForm');if(!f.childNodes.length)T.tr.N.forEach(function(n,i){var d=el('div');d.appendChild(el('label','',n));var e=el('input');e.type='number';e.min=0;e.id='sq'+i;e.inputMode='numeric';d.appendChild(e);f.appendChild(d)});
+ var m=byId[myStockId()],q={};if(m){$('stLoc').value=m.l;(m.t||'').split(',').forEach(function(p){var a=p.split(':');q[a[0]]=a[1]})}T.tr.N.forEach(function(n,i){$('sq'+i).value=q[i]||''})}
+function saveStock(){var a=[];T.tr.N.forEach(function(n,i){var v=parseInt($('sq'+i).value)||0;if(v>0)a.push(i+':'+v)});var q=a.join(',');if(blen(q)>123){toast('Çok fazla kalem');return}
+ adm('0','stock',{q:q,loc:$('stLoc').value}).then(function(r){if(r&&r.ok)toast(q?'Stok yayınlandı':'Dağıtım noktası kaldırıldı')})}
+function loadAddr(){fetch('/api/addr').then(function(r){return r.json()}).then(function(j){if(pin)$('addrList').value=j.a;var d=$('addrs');d.innerHTML='';j.a.split('\n').forEach(function(x){x=x.trim();if(x){var o=el('option');o.value=x;d.appendChild(o)}})}).catch(function(){})}
+function saveAddr(){adm('0','addr',{list:$('addrList').value}).then(function(r){if(r&&r.ok){toast('Adres listesi kaydedildi');loadAddr()}})}
+function loadNodes(){fetch('/api/nodes').then(function(r){return r.json()}).then(function(j){var d=$('nodes');d.innerHTML='';var tb=el('table'),hr=el('tr');
+ ['Nokta','Pil','Tel.','Kayıt','Acil','Ekipsiz','Görülme'].forEach(function(x){hr.appendChild(el('th','',x))});tb.appendChild(hr);
+ function row(n,self){var r=el('tr'),old=!self&&n.age>90;r.appendChild(el('td','',(self?'⭐ ':'')+(n.place||'Cihaz '+n.id)+(n.gw?' 🌐':'')));
+  r.appendChild(el('td','',n.bat<0?'?':(n.bat<20?'🪫':'🔋')+n.bat+'%'+(n.chg?'⚡':'')));r.appendChild(el('td','',n.cli));r.appendChild(el('td','',n.cnt));r.appendChild(el('td','',n.urg));r.appendChild(el('td','',n.open));
+  r.appendChild(el('td','',self?'bu cihaz':old?'⚠️ '+Math.round(n.age/60)+' dk önce':n.age+' sn'));if(old)r.style.color='#ff6b5e';tb.appendChild(r)}
+ row(j.self,1);j.n.sort(function(a,b){return a.age-b.age}).forEach(function(n){row(n,0)});d.appendChild(tb);
+ if(!j.n.length)d.appendChild(el('p','meta','Mesh üzerinde başka cihaz görülmedi.'))}).catch(function(){})}
+function summary(){if(!pin)return;var NN=T.tr.N,KK=T.tr.K,ST=stockTot(),open=msgs.filter(function(m){return m.st<=3&&!(m.f&1)});
+ var c=[0,0,0,0,0,0,0,0,0];msgs.forEach(function(m){if(!(m.f&1))c[m.st]++});
+ var c2=[0,0,0,0,0,0,0,0,0,0,0,0];msgs.forEach(function(m){if(!(m.f&1))c2[m.st]++});c=c2;
+ $('sumSt').textContent='Açık: güvende '+c[0]+' · yardım '+c[1]+' · yaralı '+c[2]+' · enkaz '+c[3]+' · bina '+c[9]+' · aranan '+c[5]+' · gönüllü '+c[6]+' · acil '+(S.urg||0)+' · ekipsiz '+(S.una||0);
+ function grp(div,list,mask,names,pp,stk){var d=$(div);d.innerHTML='';var any=0;names.forEach(function(nm,i){var a=list.filter(function(m){return m[mask]>>i&1});if(!a.length)return;any=1;
+  var p=0;a.forEach(function(m){p+=m.p||1});var de=el('details');de.appendChild(el('summary','',nm+' — '+a.length+' kayıt'+(pp?' / '+p+' kişi':'')+(stk?' · ağdaki stok '+(stk[i]||0):'')));var u=el('ul');
+  a.sort(function(x,y){return y.u-x.u}).forEach(function(m){u.appendChild(el('li','',(m.u==3?'🔴 ':'')+(m.n||'İsimsiz')+(m.l?' — '+m.l:'')+(m.ph?' — '+m.ph:'')))});de.appendChild(u);d.appendChild(de)});
+  if(!any)d.appendChild(el('p','meta','Kayıt yok.'))}
+ grp('sumNeeds',open,'nd',NN,1,ST);grp('sumSkills',msgs.filter(function(m){return m.st==6&&!(m.f&1)}),'sk',KK,0)}
+setInterval(function(){if(pend&&!(document.activeElement&&document.activeElement.className=='rin'))draw()},1500);
+lim('name',29);lim('loc',47);lim('seeker',40);lim('text',123);
+$('name').value=ls('nm')||'';$('ph').value=ls('ph')||'';$('loc').value=ls('lc')||'';
+var nl=(navigator.language||'tr').slice(0,2);setLang(ls('lang')||(T[nl]?nl:(nl=='tr'?'tr':'en')));
+poll(1);setInterval(poll,6000);loadAddr();setInterval(function(){if(pin&&!$('p3').classList.contains('hide'))loadNodes()},20000);
+</script></body></html>

@@ -30,7 +30,8 @@ Arduino IDE ile derlenir. Kullanılan kütüphaneler: `WiFi`, `WebServer`, `DNSS
 | Klasör | Açıklama |
 | --- | --- |
 | `MGM_Esp32_earthquake_system_v1` | İlk sürüm: mesajlaşma, yardım talebi, yönetici paneli ve ağ adı değiştirme |
-| `MGM_Esp32_earthquake_system_v1.1` | Güncel sürüm: captive portal, konum paylaşımı, sistem istatistikleri, hassasiyet ayarı ve genişletilmiş arayüz |
+| `MGM_Esp32_earthquake_system_v1.1` | ESP32 + MPU6050 son sürümü: captive portal, konum paylaşımı, sistem istatistikleri, hassasiyet ayarı ve genişletilmiş arayüz |
+| `MGM_M5Stick_earthquake_system_v2.1` | **Yeni nesil (M5StickC Plus/Plus2):** ESP-NOW mesh ile cihazlar arası mesaj aktarımı, TR/EN/AR arayüz, görevli paneli (görev takibi, triyaj, ağ haritası), yakınımı arıyorum eşleştirmesi, OTA güncelleme, Telegram/webhook internet köprüsü. Ayrıntılar klasördeki README'de. |
 
 Her sürümün `data/` klasöründe web arayüzü dosyaları (HTML, CSS, JS) bulunur.
 
