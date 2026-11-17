@@ -47,3 +47,7 @@ Her sürümün `data/` klasöründe web arayüzü dosyaları (HTML, CSS, JS) bul
 Yönetici paneli kullanıcı adı ve şifresi kodda sabittir (`adminUsername`, `adminPassword`). Gerçek kullanımdan önce mutlaka değiştirin. Bu proje bir deneme/prototiptir ve resmî bir erken uyarı sisteminin yerine geçmez.
 
 — Mert Güzelmansur (MGM)
+
+## Lisans
+
+MIT Lisansı. Ayrıntılar için [LICENSE](LICENSE) dosyasına bakın.

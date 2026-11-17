@@ -101,3 +101,7 @@ releases/             Derlenmiş .bin dosyaları
 
 ---
 MGM · Mert Güzelmansur
+
+## Lisans
+
+MIT Lisansı — reponun kökündeki [LICENSE](../LICENSE) dosyasına bakın.
