@@ -1,53 +1,116 @@
-# ESP32 Earthquake Message System
+# ESP32 Earthquake Message System — Deprem Acil Haberleşme Ağı
 
-> İnternet ve hücresel şebeke olmadan çalışan, ESP32 tabanlı deprem algılama ve acil durum mesajlaşma sistemi.
+> Baz istasyonları ve internet çöktüğünde devreye giren, ESP32 tabanlı açık Wi‑Fi acil durum haberleşme sistemi. Telefonlar **uygulama kurmadan** ağa bağlanır, durumunu ve aciliyetini bildirir; cihazlar mesajları birbirine aktararak mahalle ölçeğinde bir ağ oluşturur.
 >
-> *EN: An offline emergency messaging system on an ESP32. An MPU6050 detects shaking, the ESP32 runs its own Wi-Fi access point with a captive portal, and people nearby can post messages and help requests from their phones.*
+> *EN: An offline emergency communication system for earthquakes, built on the ESP32. Phones join an open Wi‑Fi network with a captive portal (no app needed) and report their status. Devices relay messages to each other to cover a whole neighbourhood.*
 
-ESP32 kendi Wi-Fi ağını yayınlar. Ağa bağlanan telefon, captive portal ile otomatik olarak acil durum sayfasına yönlenir. Sayfa üzerinden mesaj gönderilebilir, yardım istenebilir ve konum paylaşılabilir. MPU6050 ivmeölçer güçlü bir sarsıntı algılarsa sistem deprem uyarısı verir.
+![v2.1 arayüzü: durum bildirimi, kayıtlar, görevli paneli ve Arapça arayüz](docs/images/v2.1_vitrin.png)
 
-![Yönetici paneli](<MGM_Esp32_earthquake_system_v1.1/1 (1).png>)
+<sub>Görseller v2.1 web arayüzünün gerçek kodundan, örnek verilerle alınmıştır. Kişi ve adresler temsilidir.</sub>
 
-## Özellikler
+## Nasıl çalışır?
 
-- **Deprem algılama:** MPU6050'den okunan ivme büyüklüğü eşik değerini (varsayılan 2.5 g) aşarsa uyarı verir. Aynı sarsıntıda tekrar uyarı vermemek için 10 saniyelik bekleme süresi vardır. Uyarı sırasında LED belirli bir desenle yanıp söner.
-- **Kendi Wi-Fi ağı:** Varsayılan ağ adı `EarthquakeAlertSystem`, şifresizdir. Ağ adı yönetici panelinden değiştirilebilir.
-- **Captive portal:** DNS sunucusu tüm istekleri ESP32'ye yönlendirir. Android ve Windows'un bağlantı kontrol adresleri de karşılanır.
-- **Mesajlaşma:** Son 50 mesajı saklar.
-- **Yardım talepleri:** Kullanıcı adıyla ve tarayıcı konumuyla yardım isteği gönderilir. Son 20 talep ve en fazla 10 kullanıcının konumu tutulur.
-- **Yönetici paneli** (`/admin`): Çalışma süresi, boş bellek, bağlı cihaz sayısı. ESP32'yi yeniden başlatma, acil durum modunu açıp kapatma, ağ adını ve deprem hassasiyetini değiştirme, mesajları, yardım taleplerini ve tüm veriyi temizleme.
+```mermaid
+flowchart LR
+    P1[📱 Telefonlar] -- "Wi‑Fi + captive portal" --> A[M5Stick<br/>Merkez Park]
+    P2[📱 Telefonlar] -- "Wi‑Fi + captive portal" --> B[M5Stick<br/>Okul Bahçesi]
+    P3[📱 Telefonlar] -- "Wi‑Fi + captive portal" --> C[M5Stick<br/>Muhtarlık]
+    A <-- "ESP‑NOW mesh" --> B
+    B <-- "ESP‑NOW mesh" --> C
+    A <-- "ESP‑NOW mesh" --> C
+    B -. "internet bulunursa" .-> T[Telegram / Webhook]
+```
 
-## Donanım
+1. Cihaz şifresiz `0000-DEPREM-ACIL-AG` ağını yayınlar. Ad sıfırlarla başladığı için Wi‑Fi listesinin en üstünde görünür.
+2. Bağlanan telefonda acil durum sayfası kendiliğinden açılır (açılmazsa `192.168.4.1`).
+3. Kişi durumunu bildirir: güvendeyim, yardım lazım, yaralı var, enkaz altındayım, yakınımı arıyorum, gönüllüyüm…
+4. Kayıt ESP‑NOW ile yakındaki diğer cihazlara aktarılır; her cihaz bütün ağın kayıtlarını gösterir.
+5. Ağdaki bir cihaz internet bulursa (telefon hotspot'u, Starlink vb.) tüm kayıtları dış dünyaya iletir.
 
-- ESP32 geliştirme kartı
-- MPU6050 ivmeölçer (I²C). Varsayılan I²C pinleri kullanılır (ESP32 DevKit'te SDA = GPIO21, SCL = GPIO22).
-- Kart üzerindeki LED (GPIO2)
+## Sürümler
 
-## Yazılım
+| Klasör | Donanım | Öne çıkanlar |
+| --- | --- | --- |
+| [`MGM_M5Stick_earthquake_system_v2.1`](MGM_M5Stick_earthquake_system_v2.1) | M5StickC Plus / Plus2 | **Güncel.** ESP‑NOW mesh, TR/EN/AR arayüz, görevli paneli, görev takibi ve triyaj, OTA, internet köprüsü |
+| [`MGM_Esp32_earthquake_system_v1.1`](MGM_Esp32_earthquake_system_v1.1) | ESP32 + MPU6050 | Captive portal, konum paylaşımı, sistem istatistikleri, hassasiyet ayarı |
+| [`MGM_Esp32_earthquake_system_v1`](MGM_Esp32_earthquake_system_v1) | ESP32 + MPU6050 | İlk sürüm: mesajlaşma, yardım talebi, yönetici paneli |
 
-Arduino IDE ile derlenir. Kullanılan kütüphaneler: `WiFi`, `WebServer`, `DNSServer`, `LittleFS`, `Wire`, `MPU6050`, `ArduinoJson`.
+---
 
-| Klasör | Açıklama |
-| --- | --- |
-| `MGM_Esp32_earthquake_system_v1` | İlk sürüm: mesajlaşma, yardım talebi, yönetici paneli ve ağ adı değiştirme |
-| `MGM_Esp32_earthquake_system_v1.1` | ESP32 + MPU6050 son sürümü: captive portal, konum paylaşımı, sistem istatistikleri, hassasiyet ayarı ve genişletilmiş arayüz |
-| `MGM_M5Stick_earthquake_system_v2.1` | **Yeni nesil (M5StickC Plus/Plus2):** ESP-NOW mesh ile cihazlar arası mesaj aktarımı, TR/EN/AR arayüz, görevli paneli (görev takibi, triyaj, ağ haritası), yakınımı arıyorum eşleştirmesi, OTA güncelleme, Telegram/webhook internet köprüsü. Ayrıntılar klasördeki README'de. |
+## v2.1 — M5Stick mesh ağı
 
-Her sürümün `data/` klasöründe web arayüzü dosyaları (HTML, CSS, JS) bulunur.
+### Halk için
+- **Durum bildirimi:** aciliyet, kişi sayısı, adres (hazır adres listesinden seçilebilir), telefon, ihtiyaçlar (su, gıda, ilaç, çadır…)
+- **Tıbbi bilgi:** kan grubu ve kritik ihtiyaç (insülin, diyaliz, oksijen, düzenli ilaç)
+- **Bina / enkaz noktası:** hasar derecesi, "girmek yasak", "içeriden ses geliyor" (otomatik ÇOK ACİL)
+- **Yakınımı arıyorum:** aranan isim "Güvendeyim" ve yardım kayıtlarıyla otomatik eşleşir; Türkçe karakter farkı sorun olmaz ("Ayse" = "Ayşe")
+- **Gönüllü kaydı**, kayıtlara cevap yazma, arama ve filtreler, dağıtım noktaları ve stokları
+- **Üç dil:** Türkçe, İngilizce ve Arapça (sağdan sola)
 
-## Kurulum
+### Görevliler için (PIN ile)
 
-1. Arduino IDE'ye ESP32 kart desteğini ve yukarıdaki kütüphaneleri ekleyin.
-2. `.ino` dosyasını kartınıza yükleyin.
-3. `data/` klasörünü LittleFS'e yükleyin (Arduino IDE için LittleFS yükleme eklentisi ile).
-4. Telefonla `EarthquakeAlertSystem` ağına bağlanın. Sayfa otomatik açılmazsa tarayıcıdan `192.168.4.1` adresine gidin.
+<img src="docs/images/v2.1_gorevli_panel.png" alt="Görevli paneli" width="300" align="right">
 
-## Güvenlik notu
+- **Görev takibi:** yeni → ekip atandı → yolda → tamamlandı; aynı adrese iki ekip gitmez
+- **START triyajı:** yeşil / sarı / kırmızı / siyah
+- **İhtiyaç özeti:** hangi ihtiyaçtan kaç kişi var, ağdaki stokla yan yana
+- **Ağ haritası:** her cihazın pili, bağlı telefon sayısı ve son görülme zamanı
+- **İmzalı resmî duyurular** (HMAC‑SHA256, ortak ağ anahtarı)
+- **Tüm ayarlar web'den:** Wi‑Fi, mesh, ekran ve ses, mesaj kuralları, pil tasarrufu, sarsıntı sensörü, internet köprüsü
+- **Veri:** CSV dışa aktarma, yedek indirme ve geri yükleme
+- **OTA:** iPhone/iPad'den `192.168.4.1/update` ile kablosuz güncelleme
 
-Yönetici paneli kullanıcı adı ve şifresi kodda sabittir (`adminUsername`, `adminPassword`). Gerçek kullanımdan önce mutlaka değiştirin. Bu proje bir deneme/prototiptir ve resmî bir erken uyarı sisteminin yerine geçmez.
+<br clear="right">
 
-— Mert Güzelmansur (MGM)
+![Ağ haritası](docs/images/v2.1_ag_haritasi.png)
+
+### Cihazın kendisi
+- Durum ekranı, açık yardım kayıtları listesi ve tek dokunuşla bağlanmak için **Wi‑Fi QR kodu**
+- ÇOK ACİL kayıtta buzzer alarmı
+- Dahili ivme sensörüyle **sarsıntı algılama** ve isteğe bağlı ağ bildirimi
+- **Düşük pil uyarısı** tüm ağa yayınlanır
+
+### Hızlı başlangıç
+1. `releases/v2.1/DepremAcilAg_v2.1_TAM_kabloyla_0x0.bin` dosyasını kabloyla **0x0** adresine yazın:
+   ```bash
+   esptool.py --chip esp32 --baud 921600 write_flash 0x0 DepremAcilAg_v2.1_TAM_kabloyla_0x0.bin
+   ```
+2. Görevli PIN'i cihaz ekranında görünür. Telefonla `0000-DEPREM-ACIL-AG` ağına bağlanın.
+3. Sonraki güncellemeler için `..._OTA_guncelleme.bin` dosyasını `192.168.4.1/update` sayfasından yükleyin.
+
+Derleme, ayarlar ve sınırlar için: [v2.1 README](MGM_M5Stick_earthquake_system_v2.1/README.md)
+
+---
+
+## v1 / v1.1 — ESP32 + MPU6050
+
+<img src="MGM_Esp32_earthquake_system_v1.1/1 (1).png" alt="v1.1 yönetici paneli" width="420">
+
+- **Deprem algılama:** MPU6050 ivme büyüklüğü eşiği (varsayılan 2.5 g) aşarsa uyarı verir; aynı sarsıntıda tekrarlamamak için 10 sn bekleme süresi vardır.
+- **Kendi Wi‑Fi ağı:** `EarthquakeAlertSystem` (şifresiz, yönetici panelinden değiştirilebilir) ve captive portal.
+- **Mesajlaşma ve yardım talepleri:** son 50 mesaj, son 20 yardım talebi ve 10 kullanıcı konumu saklanır.
+- **Yönetici paneli** (`/admin`): sistem durumu, yeniden başlatma, acil durum modu, ağ adı ve hassasiyet ayarı, veri temizleme.
+
+**Donanım:** ESP32 geliştirme kartı, MPU6050 (I²C, SDA = GPIO21, SCL = GPIO22), kart üzerindeki LED (GPIO2).
+
+**Kurulum:** Arduino IDE'ye ESP32 desteğini ve `MPU6050`, `ArduinoJson` kütüphanelerini ekleyin. `.ino` dosyasını yükleyin, `data/` klasörünü LittleFS'e aktarın, sonra `EarthquakeAlertSystem` ağına bağlanın.
+
+> **Güvenlik notu:** v1/v1.1'de yönetici kullanıcı adı ve şifresi kodda sabittir (`adminUsername`, `adminPassword`). Gerçek kullanımdan önce mutlaka değiştirin.
+
+---
+
+## Yol haritası
+
+- **Mahalle istasyonu:** Raspberry Pi + dış ortam erişim noktası; yüzlerce kullanıcı ve çevrimdışı harita
+- **Omurga:** istasyonlar arası 5 GHz noktadan noktaya bağlantı ve ESP32 noktalarıyla köprü
+- **Yedek hat:** LoRa / Meshtastic
+
+## Uyarı
+
+Bu proje gönüllü bir prototiptir. Resmî bir erken uyarı veya acil çağrı sisteminin yerine geçmez. Ağ açıktır; yazılan her şeyi ağa bağlanan herkes görebilir.
 
 ## Lisans
 
 MIT Lisansı. Ayrıntılar için [LICENSE](LICENSE) dosyasına bakın.
+
+— Mert Güzelmansur (MGM)
